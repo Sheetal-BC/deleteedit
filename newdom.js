@@ -1,10 +1,14 @@
 var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
+var filter = document.getElementById('filter');
 // Form submit event
 form.addEventListener('submit', addItem);
 // Delete event
 itemList.addEventListener('click', removeItem);
-// Add item
+// filter event
+filter.addEventListener('keyup', filterItems);
+
+
 // Add item
 function addItem(e){
     e.preventDefault();
@@ -20,11 +24,15 @@ function addItem(e){
     // Add text node with input value
     li.appendChild(document.createTextNode(newItem));
 
+    
+
     var editBtn = document.createElement('button');
     editBtn.className='btn btn-success btn-sm float-right edit';
     // append text node
    editBtn.appendChild(document.createTextNode('Edit'));
     li.appendChild(editBtn);
+
+
     //create delete button element
     var deleteBtn = document.createElement('button');
     deleteBtn.className='btn btn-danger btn-sm mr-2 float-right delete';
@@ -32,7 +40,12 @@ function addItem(e){
     deleteBtn.appendChild(document.createTextNode('X'));
     li.appendChild(deleteBtn);
 
+   
     
+    var discli= document.createElement('dd');
+    discli.className ='discription';
+    discli.appendChild(document.createTextNode('item is added to the list'));
+    li.appendChild(discli);
 
     // append li to list
     
@@ -50,3 +63,27 @@ function removeItem(e){
    }
 
 }
+
+// function items
+
+function filterItems(e){
+    // convert text to lowercase
+    var text = e.target.value.toLowerCase();
+    var items = itemList.getElementsByTagName('');
+    
+    // covert to array
+   
+    Array.from(items).forEach(function(item){
+        var itemName = item.firstChild.textContent;
+    if(itemName.toLowerCase().indexOf(text) != -1){
+        item.style.display = 'block';
+    }else{
+        item.style.display = 'none'
+    }
+    });
+    
+   
+
+  
+}
+
